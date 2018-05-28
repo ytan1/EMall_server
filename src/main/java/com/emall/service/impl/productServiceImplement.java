@@ -221,12 +221,12 @@ public class productServiceImplement implements IProductService {
             categoryIds = iCategoryService.selectCategoryAndChildrenById(categoryId).getData();
 
         }
-        PageHelper pageHelper = new PageHelper();
-        pageHelper.startPage(pageNum,pageSize);
+//        PageHelper pageHelper = new PageHelper();
+        PageHelper.startPage(pageNum,pageSize);
         if(orderBy.equals(CONST.ORDER.ASC)){
-            pageHelper.orderBy("price asc");
+            PageHelper.orderBy("price asc");
         }else if(orderBy.equals(CONST.ORDER.DESC)){
-            pageHelper.orderBy("price desc");
+            PageHelper.orderBy("price desc");
         }
 
         List<Product> products= Lists.newArrayList();

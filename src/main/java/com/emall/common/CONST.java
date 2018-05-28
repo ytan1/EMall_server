@@ -16,4 +16,31 @@ public class CONST {
         public int IS_CHECKED = 1;
         public int IS_NOT_CHECKED = 0;
     }
+
+    public enum OrderStatusEnum{
+        CANCELED(0,"Canceled"),
+        NO_PAY(10,"Not payed"),
+        PAID(20,"Payed"),
+        SHIPPED(40,"Sent"),
+        ORDER_SUCCESS(50,"Order done"),
+        ORDER_CLOSE(60,"Order closed");
+
+
+        OrderStatusEnum(int code,String value){
+            this.code = code;
+            this.value = value;
+        }
+        private String value;
+        private int code;
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+
+    }
 }
