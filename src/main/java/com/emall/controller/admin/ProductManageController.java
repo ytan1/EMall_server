@@ -44,7 +44,7 @@ public class ProductManageController {
         }
         return iProductService.saveOrUpdateProduct(product);
     }
-    @RequestMapping("set_sale_status")
+    @RequestMapping("set_sale_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);

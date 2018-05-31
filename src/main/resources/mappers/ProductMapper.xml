@@ -182,7 +182,7 @@
     from mmall_product
     ORDER BY id desc
   </select>
-  <select id="serachByKeywordAndProductId" resultMap="BaseResultMap" parameterType="map">
+  <select id="searchByKeywordAndProductId" resultMap="BaseResultMap" parameterType="map">
     select
     <include refid="Base_Column_List"/>
     from mmall_product

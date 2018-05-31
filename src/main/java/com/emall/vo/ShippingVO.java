@@ -1,7 +1,7 @@
 package com.emall.vo;
 
 public class ShippingVO {
-    private Integer userId;
+//    private Integer userId;
 
     private String receiverName;
 
@@ -19,13 +19,13 @@ public class ShippingVO {
 
     private String receiverZip;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public String getReceiverName() {
         return receiverName;

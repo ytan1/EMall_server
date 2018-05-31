@@ -48,10 +48,18 @@ public class productServiceImplement implements IProductService {
             return ServerResponse.responseByError(ResponseCode.ILLEGAL_ARGS.getCode(), ResponseCode.ILLEGAL_ARGS.getMsg());
         }
         //add mainImage property if necessary
-        if(StringUtils.isBlank(product.getMainImage())){
+        if(StringUtils.isBlank(product.getMainImage()) && StringUtils.isNotBlank(product.getSubImages())){
             String[] subImages = product.getSubImages().split(",");
             if(subImages.length>0){
                 product.setMainImage(subImages[0]);
+            }
+        }
+        if(product.getId() == null){
+            int insertResult = productMapper.insertSelective(product);
+            if(insertResult>0){
+                return ServerResponse.responseBySuccessMessage("Create product success.");
+            }else{
+                return ServerResponse.responseByError("Create product fails.");
             }
         }
         //check if the item exists in db, and then update or insert
@@ -104,6 +112,24 @@ public class productServiceImplement implements IProductService {
         return ServerResponse.responseBySuccess("Get detail success.", vo);
 
     }
+    //detail for customer not showing the product with status != 1
+    public ServerResponse<ProductDetailVO> detailForCustomer(Integer productId){
+        if(productId==null ){
+            return ServerResponse.responseByError(ResponseCode.ILLEGAL_ARGS.getCode(), ResponseCode.ILLEGAL_ARGS.getMsg());
+        }
+        Product selectResult = productMapper.selectByPrimaryKey(productId);
+        if(selectResult==null){
+            ServerResponse.responseByError("There is so such product with the Id provided.");
+        }
+        if(selectResult.getStatus()!= 1){
+            return ServerResponse.responseByError("There product is not being sold.");
+        }
+        ProductDetailVO vo = this.assembleProductDetailVO(selectResult);
+        return ServerResponse.responseBySuccess("Get detail success.", vo);
+
+    }
+
+
     private ProductDetailVO assembleProductDetailVO(Product product){
         ProductDetailVO vo = new ProductDetailVO();
         vo.setId(product.getId());
@@ -163,6 +189,11 @@ public class productServiceImplement implements IProductService {
     public ServerResponse<PageInfo> searchKeywordAndProductId(String keyword, Integer productId, Integer pageNum, Integer pageSize){
         //use pagehelper plugin to devide list
         PageHelper.startPage(pageNum, pageSize);
+        if(StringUtils.isNotBlank(keyword)){
+            StringBuilder sb = new StringBuilder();
+            keyword = sb.append("%").append(keyword).append("%").toString();
+        }
+
         //select products by keyword or productId
         List<Product> products = productMapper.searchByKeywordAndProductId(keyword, productId);
         //assemble to productSimpleVO
@@ -195,7 +226,7 @@ public class productServiceImplement implements IProductService {
             logger.info("write file on tomcat server disk");
             //upload to ftp server
             result = FTPUtil.upload(fileOnDisk);
-
+            //fileOnDisk is only stored in tomcat server folder temporarily before loaded to ftp server
             fileOnDisk.delete();
 
         } catch (IOException e) {

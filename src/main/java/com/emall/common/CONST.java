@@ -19,11 +19,11 @@ public class CONST {
 
     public enum OrderStatusEnum{
         CANCELED(0,"Canceled"),
-        NO_PAY(10,"Not payed"),
-        PAID(20,"Payed"),
-        SHIPPED(40,"Sent"),
-        ORDER_SUCCESS(50,"Order done"),
-        ORDER_CLOSE(60,"Order closed");
+        NO_PAY(10,"Not paid");
+//        PAID(20,"Payed"),
+//        SHIPPED(40,"Sent"),
+//        ORDER_SUCCESS(50,"Order done"),
+//        ORDER_CLOSE(60,"Order closed");
 
 
         OrderStatusEnum(int code,String value){
@@ -39,6 +39,15 @@ public class CONST {
 
         public int getCode() {
             return code;
+        }
+
+        public static String getOrderStatusEnumByCode(int code){
+            for(OrderStatusEnum orderStatusEnum: values()){
+                if(orderStatusEnum.getCode() == code){
+                    return orderStatusEnum.getValue();
+                }
+            }
+            return null;
         }
 
 

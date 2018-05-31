@@ -14,4 +14,5 @@ public interface IProductService {
     public ServerResponse<PageInfo> searchKeywordAndProductId(String keyword, Integer productId, Integer pageNum, Integer pageSize);
     public ServerResponse upload(MultipartFile file, String path);
     public ServerResponse searchByKeywordAndCategoryId(String keyword, Integer categoryId, Integer pageNum, Integer pageSize, String orderBy);
+    public ServerResponse<ProductDetailVO> detailForCustomer(Integer productId);
 }

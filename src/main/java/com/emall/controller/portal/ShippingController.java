@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/user/shipping/")
+@RequestMapping("/shipping/")
 public class ShippingController {
 
     @Autowired

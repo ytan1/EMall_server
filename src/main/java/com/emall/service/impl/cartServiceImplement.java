@@ -43,6 +43,7 @@ public class cartServiceImplement implements ICartService {
             cart.setQuantity(cart.getQuantity()+count);
             cartMapper.updateByPrimaryKeySelective(cart);
         }else{
+            cart = new Cart();
             cart.setQuantity(count);
             cart.setChecked(CONST.CHECKED.IS_CHECKED);
             cart.setProductId(productId);
@@ -121,16 +122,19 @@ public class cartServiceImplement implements ICartService {
     private CartVO makeCartVO(Integer userId){
         List<Cart> cartList = Lists.newArrayList();
         List<CartProductVO> cartProductVOList = Lists.newArrayList();
-        CartProductVO cartProductVO = new CartProductVO();
+//        CartProductVO cartProductVO = new CartProductVO();
         BigDecimal totalPrice = new BigDecimal("0");
         cartList = cartMapper.selectByUserId(userId);
 
         if(cartList.size()!=0){
             for(Cart cartItem : cartList){
                 Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());
+                CartProductVO cartProductVO = new CartProductVO();
+                cartProductVO.setId(cartItem.getId());
+
                 if(product != null){
                     cartProductVO.setProductId(product.getId());
-                    cartProductVO.setId(cartItem.getId());
+
                     cartProductVO.setProductMainImage(product.getMainImage());
                     cartProductVO.setProductName(product.getName());
                     cartProductVO.setProductPrice(product.getPrice());
@@ -138,7 +142,7 @@ public class cartServiceImplement implements ICartService {
                     int productStock = product.getStock();
                     cartProductVO.setProductStock(productStock);
                     cartProductVO.setProductSubtitle(product.getSubtitle());
-                    cartProductVO.setProductChecked(cartItem.getChecked());
+                    cartProductVO.setProductChecked(cartItem.getChecked());  //set if checked
                     cartProductVO.setUserId(cartItem.getUserId());
                     int cartQuantity = cartItem.getQuantity();
                     if(cartQuantity > productStock){
@@ -165,7 +169,7 @@ public class cartServiceImplement implements ICartService {
             }
         }
         CartVO cartVO = new CartVO();
-        cartVO.setCartProductVoList(cartProductVOList);
+        cartVO.setCartProductVoList(cartProductVOList); //the return data key is Vo not VO
         cartVO.setCartTotalPrice(totalPrice);
         cartVO.setImageHost(PropertyUtil.getValue("ftp.server.http.prefix"));
         cartVO.setCartAllChecked(this.isAllChecked(userId));

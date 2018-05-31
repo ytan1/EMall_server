@@ -67,10 +67,10 @@ public class orderServiceImplement implements IOrderService {
         }
         //reduct the stock quantity
         this.reduceStockQuantity(orderItemList);
-        //empty the cart, notice even the cart item is checked it will be emptied
+        //empty the cart, notice even the cart item is not checked it will be emptied
         this.emptyCart(cartList);
 
-        orderMapper.insert(order);
+//        orderMapper.insert(order);  //insert in assembleorder
 
         OrderVO orderVO = this.assembleOrderVO(order, orderItemList);
 
@@ -155,10 +155,11 @@ public class orderServiceImplement implements IOrderService {
         OrderVO orderVO = new OrderVO();
         orderVO.setOrderNo(order.getOrderNo());
         orderVO.setPayment(order.getPayment());
-        orderVO.setPayment(order.getPayment());
-        orderVO.setPaymentTypeDesc("Not payed");
+
+        orderVO.setPaymentTypeDesc("Online");
         orderVO.setPostage(order.getPostage());
         orderVO.setStatus(order.getStatus());
+        orderVO.setStatusDesc(CONST.OrderStatusEnum.getOrderStatusEnumByCode(order.getStatus()));
         orderVO.setPaymentTime(order.getPaymentTime());
         orderVO.setSendTime(order.getSendTime());
         orderVO.setEndTime(order.getEndTime());

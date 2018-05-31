@@ -17,15 +17,17 @@ public class ProductController {
 
     @RequestMapping("detail.do")
     @ResponseBody
-    public ServerResponse detail(Integer productId){
-        return iProductService.detail(productId);
+    public ServerResponse detailForCustomer(Integer productId){
+        return iProductService.detailForCustomer(productId);
     }
 
+    @RequestMapping("list.do")
+    @ResponseBody
     public ServerResponse list(@RequestParam(value = "keyword" ,required = false) String keyword,
                                 @RequestParam(value = "categoryId", required = false) Integer categoryId,
                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                @RequestParam(value = "orderBy") String orderBy){
+                                @RequestParam(value = "orderBy", defaultValue = "default") String orderBy){
         return iProductService.searchByKeywordAndCategoryId(keyword, categoryId, pageNum,pageSize,orderBy);
     }
 }
