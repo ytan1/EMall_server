@@ -28,5 +28,5 @@ public interface CartMapper {
 
     int updateSelect(@Param("productId")Integer productId, @Param("userId") Integer userId, @Param("isSelected") Integer isSelected);
 
-    int getCartProductCount(Integer userId);
+    Integer getCartProductCount(Integer userId);
 }
