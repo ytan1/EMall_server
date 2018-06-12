@@ -61,7 +61,7 @@ public class UserController {
     public ServerResponse<User> getUserInfo(HttpSession session){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user == null){
-            return ServerResponse.responseByError(ResponseCode.LOGIN.getCode(), "Need to login first");
+            return ServerResponse.responseByError(ResponseCode.ERROR.getCode(), "Need to login first");
         }
         return ServerResponse.responseBySuccess("Get info success.", user);
     }
