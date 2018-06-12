@@ -157,7 +157,7 @@
     </if>
   </update>
   <select id="getCartProductCount" parameterType="int" resultType="int">
-    select sum(quantity) as count
+    select IFNULL(sum(quantity),0) as count
     from mmall_cart
     where user_id = #{userId}
   </select>
