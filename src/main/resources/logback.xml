@@ -12,9 +12,9 @@
 
     <appender name="emall" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/mmalllog/mmall.log</File>-->
-        <File>f:/mmalllog/mmall.log</File>
+        <File>/emalllog/emall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>f:/mmalllog/mmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>/emalllog/emall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
