@@ -227,7 +227,7 @@ public class productServiceImplement implements IProductService {
             //upload to ftp server
             result = FTPUtil.upload(fileOnDisk);
             //fileOnDisk is only stored in tomcat server folder temporarily before loaded to ftp server
-            fileOnDisk.delete();
+//            fileOnDisk.delete();
 
         } catch (IOException e) {
             logger.error("Upload error", e);
