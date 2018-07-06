@@ -45,6 +45,7 @@
 
     <logger name="com.emall" additivity="false" level="INFO" >
         <appender-ref ref="emall" />
+        <appender-ref ref="error" />
         <appender-ref ref="console"/>
     </logger>
 
