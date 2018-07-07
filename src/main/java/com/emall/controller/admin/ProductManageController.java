@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -121,7 +122,7 @@ public class ProductManageController {
 //    }
     @RequestMapping("richtext_image_upload.do")
     @ResponseBody
-    public Map richtextUpload(HttpServletRequest request, HttpSession session, @RequestParam("upload_file") MultipartFile file){
+    public Map richtextUpload(HttpServletRequest request, HttpServletResponse httpResponse, HttpSession session, @RequestParam("upload_file") MultipartFile file){
         Map resultMap = Maps.newHashMap();
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
@@ -137,9 +138,15 @@ public class ProductManageController {
         }
         //get the absolute path of folder "upload" in the "web" folder
         String path = request.getSession().getServletContext().getRealPath("upload");
+        ServerResponse<Map> uploadRes = iProductService.upload(file, path);
+        if(!uploadRes.isSuccess()){
+            resultMap.put("success", false);
+            resultMap.put("msg", "Upload error for rich text");
+        }
         resultMap.put("success", true);
         resultMap.put("msg", "Upload success");
-        resultMap.put("file_path", iProductService.upload(file, path).getData());
+        resultMap.put("file_path", uploadRes.getData().get("url"));
+        httpResponse.addHeader("Access-Control-Allow-Headers","X-File-Name");
         return resultMap;
     }
 }
