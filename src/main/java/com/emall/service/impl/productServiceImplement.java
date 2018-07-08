@@ -141,7 +141,7 @@ public class productServiceImplement implements IProductService {
         vo.setStatus(product.getStatus());
         vo.setStock(product.getStock());
         vo.setSubImages(product.getSubImages());
-        vo.setSubTitle(product.getSubImages());
+        vo.setSubtitle(product.getSubtitle());
         //properties util to set host image, actually can use String diretly...
         vo.setImageHost(PropertyUtil.getValue("ftp.server.http.prefix"));
         //Category if not exist, set parent category 0
@@ -181,7 +181,7 @@ public class productServiceImplement implements IProductService {
         vo.setName(product.getName());
         vo.setPrice(product.getPrice());
         vo.setStatus(product.getStatus());
-        vo.setSubTitle(product.getSubImages());
+        vo.setSubtitle(product.getSubtitle());
         //properties util to set host image, actually can use String diretly...
         vo.setImageHost(PropertyUtil.getValue("ftp.server.http.prefix"));
         return vo;
