@@ -171,11 +171,12 @@ public class orderServiceImplement implements IOrderService {
         for(OrderItem orderItem: orderItemList){
             orderItemVOList.add(this.assembleOrderItemVO(orderItem));
         }
+        orderVO.setOrderItemVoList(orderItemVOList);
         Integer shippingId = order.getShippingId();
         Shipping shipping = shippingMapper.selectByPrimaryKey(shippingId);
         if(shipping != null){ // always check null after sql!!!
             orderVO.setShippingId(shippingId);
-            orderVO.setShipVO(this.assembleShippingVO(shipping));
+            orderVO.setShippingVO(this.assembleShippingVO(shipping));
             orderVO.setReceiverName(shipping.getReceiverName());
         }
 

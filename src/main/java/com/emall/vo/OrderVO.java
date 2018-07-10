@@ -30,7 +30,7 @@ public class OrderVO {
 
     private Date updateTime;
 
-    private List<OrderVO> orderItemVoList;
+    private List<OrderItemVO> orderItemVoList;
 
     private ShippingVO shippingVO;
 
@@ -58,11 +58,11 @@ public class OrderVO {
         this.imageHost = imageHost;
     }
 
-    public List<OrderVO> getOrderItemVoList() {
+    public List<OrderItemVO> getOrderItemVoList() {
         return orderItemVoList;
     }
 
-    public void setOrderItemVoList(List<OrderVO> orderItemVoList) {
+    public void setOrderItemVoList(List<OrderItemVO> orderItemVoList) {
         this.orderItemVoList = orderItemVoList;
     }
 
