@@ -90,7 +90,7 @@ public class UserController {
     public ServerResponse<String> resetPassword(String passwordOld, String passwordNew, HttpSession session){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user == null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iUserService.resetPassword(passwordOld, passwordNew, user);
 
@@ -101,7 +101,7 @@ public class UserController {
     public ServerResponse<User> updateInfo(User user, HttpSession session){
         User currentUser = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user == null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         user.setId(currentUser.getId());
         user.setUsername(currentUser.getUsername());
@@ -119,7 +119,7 @@ public class UserController {
     public ServerResponse<User> getInformation(HttpSession session){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user == null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iUserService.getInformation(user.getId());
     }

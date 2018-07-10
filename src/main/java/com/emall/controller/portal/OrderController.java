@@ -57,7 +57,7 @@ public class OrderController {
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iOrderService.list(user.getId(), pageNum, pageSize);
 
