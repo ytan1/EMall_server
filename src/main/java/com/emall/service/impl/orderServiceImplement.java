@@ -124,7 +124,7 @@ public class orderServiceImplement implements IOrderService {
         order.setUserId(userId);
         order.setShippingId(shippingId);
         order.setPayment(payment);
-        order.setPaymentType(1); // 1 for online, only online option for the moment
+        order.setPaymentType(1); // 1 for receive and pay, the only option for the moment
         order.setPostage(0);  // this project doesn't consider postage, it's all free!
         order.setStatus(CONST.OrderStatusEnum.NO_PAY.getCode());
 
@@ -156,7 +156,7 @@ public class orderServiceImplement implements IOrderService {
         orderVO.setOrderNo(order.getOrderNo());
         orderVO.setPayment(order.getPayment());
 
-        orderVO.setPaymentTypeDesc("Online");
+        orderVO.setPaymentTypeDesc("Receive and pay");
         orderVO.setPostage(order.getPostage());
         orderVO.setStatus(order.getStatus());
         orderVO.setStatusDesc(CONST.OrderStatusEnum.getOrderStatusEnumByCode(order.getStatus()));
