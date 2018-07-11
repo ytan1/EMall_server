@@ -12,6 +12,7 @@ public interface IOrderService {
     public ServerResponse detail(Integer userId, long orderNo);
     public ServerResponse list(Integer userId, Integer pageNum, Integer pageSize);
     public ServerResponse manageList(Integer pageNum, Integer pageSize);
+    public ServerResponse receive(Integer userId, long orderNo);
 
 
 }

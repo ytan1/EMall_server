@@ -19,8 +19,8 @@ public class CONST {
 
     public enum OrderStatusEnum{
         CANCELED(0,"Canceled"),
-        NO_PAY(10,"Not paid");
-//        PAID(20,"Payed"),
+        NO_PAY(10,"Not paid"),
+        PAID(20,"Paid");
 //        SHIPPED(40,"Sent"),
 //        ORDER_SUCCESS(50,"Order done"),
 //        ORDER_CLOSE(60,"Order closed");

@@ -42,7 +42,7 @@ public class orderServiceImplement implements IOrderService {
     public ServerResponse createOrder(Integer userId, Integer shippingId){
         List<OrderItem> orderItemList = Lists.newArrayList();
         List<Cart> cartList = Lists.newArrayList();
-        cartList = cartMapper.selectByUserId(userId);
+        cartList = cartMapper.selectByUserId(userId); //should be cartItemList!!!
 
         //convert items in cart to items in order , need to check if it is checked in cart and on sale
         ServerResponse response = this.assembleOrderItemList(userId, cartList);
@@ -308,6 +308,30 @@ public class orderServiceImplement implements IOrderService {
         return ServerResponse.responseBySuccess(pageInfo);
 
     }
+    //client receive items
+    public ServerResponse receive(Integer userId, long orderNo){
+        Order order = orderMapper.selectByUserIdAndOrderNo(userId, orderNo);
+        if(order == null){
+            return ServerResponse.responseByError("The user has no such order.");
+        }
+        if(order.getStatus() != CONST.OrderStatusEnum.NO_PAY.getCode()){
+            return ServerResponse.responseByError("The order was paid or canceled");
+        }
+        order.setStatus(CONST.OrderStatusEnum.PAID.getCode());
+        Order newOrder = new Order();
+        newOrder.setId(order.getId());
+        newOrder.setStatus(CONST.OrderStatusEnum.PAID.getCode());
+        int result = orderMapper.updateByPrimaryKeySelective(newOrder);
+        if(result > 0){
+            List<OrderItem> orderItemList = Lists.newArrayList();
+            orderItemList = orderItemMapper.selectByUserIdAndOrderNo(userId, orderNo);
+            OrderVO orderVO = this.assembleOrderVO(order, orderItemList);
+            return ServerResponse.responseBySuccess("Order status update success", orderVO);
+        }else{
+            return ServerResponse.responseByError("Order status update fail.");
+        }
+    }
+    //for admin look up orders from all users
     public ServerResponse manageList(Integer pageNum, Integer pageSize){
         List<Order> orderList = Lists.newArrayList();
         List<OrderVO> orderVOList = Lists.newArrayList();

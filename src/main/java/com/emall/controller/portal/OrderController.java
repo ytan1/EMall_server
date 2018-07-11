@@ -25,7 +25,7 @@ public class OrderController {
     public ServerResponse createOrder(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iOrderService.createOrder(user.getId(), shippingId);
 
@@ -36,7 +36,7 @@ public class OrderController {
     public ServerResponse cancleOrder(HttpSession session, long orderNo){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iOrderService.cancelOrder(user.getId(), orderNo);
 
@@ -47,7 +47,7 @@ public class OrderController {
     public ServerResponse getOrderCartProduct(HttpSession session){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iOrderService.getOrderCartProduct(user.getId());
 
@@ -67,9 +67,19 @@ public class OrderController {
     public ServerResponse detail(HttpSession session, long orderNo){
         User user = (User) session.getAttribute(CONST.CURRENT_USER);
         if(user==null){
-            return ServerResponse.responseByError("Please login first.");
+            return ServerResponse.responseByError(10, "Please login first.");
         }
         return iOrderService.detail(user.getId(), orderNo);
+
+    }
+    @RequestMapping("received_and_paid.do")
+    @ResponseBody
+    public ServerResponse receive(HttpSession session, long orderNo){
+        User user = (User) session.getAttribute(CONST.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.responseByError(10, "Please login first.");
+        }
+        return iOrderService.receive(user.getId(), orderNo);
 
     }
 
